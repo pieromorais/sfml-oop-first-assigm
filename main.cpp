@@ -405,7 +405,7 @@ int main()
 		}
 
 		window.clear();
-		
+
 		for (Circle& c : circles) 
 		{
 			//first thing, load the font
@@ -413,6 +413,23 @@ int main()
 			sf::Vector2f nextPos = c.getPosition() + c.getSpeed();
 			c.setPosition(nextPos.x, nextPos.y);
 			c.hitCorner(wr);
+			//c.describe();	
+		}
+		for (Rect& r : rectangles) 
+		{
+			// first load
+			
+			sf::Vector2f nextPos = r.getPosition() + r.getSpeed();
+			r.setPosition(nextPos.x, nextPos.y);
+			r.hitCorner(wr);
+		}
+
+
+		
+		for (Circle& c : circles) 
+		{
+			//first thing, load the font
+
 			window.draw(c);
 			window.draw(c.drawText());
 			//c.describe();	
@@ -421,9 +438,6 @@ int main()
 		for (Rect& r : rectangles) {
 			// first load
 			
-			sf::Vector2f nextPos = r.getPosition() + r.getSpeed();
-			r.setPosition(nextPos.x, nextPos.y);
-			r.hitCorner(wr);
 			window.draw(r);
 			window.draw(r.drawText());
 		}
