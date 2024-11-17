@@ -1,6 +1,4 @@
 // standard cpp
-#include <SFML/Graphics/Font.hpp>
-#include <SFML/Graphics/Text.hpp>
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -14,6 +12,8 @@
 #include <SFML/Window/VideoMode.hpp>
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/System/Vector2.hpp>
+#include <SFML/Graphics/Font.hpp>
+#include <SFML/Graphics/Text.hpp>
 
 // creating struct to define position in the plane
 
@@ -367,6 +367,7 @@ int main()
 	std::vector<Circle>	circles;
 	std::vector<Rect>	rectangles;
 
+	
 	readConfigFile("config.txt", wr, font, circles, rectangles);
 
 	sf::Font techFont;
@@ -377,8 +378,18 @@ int main()
 		std::cout << "Error loading the font file" << std::endl;
 	}
 
+	for (Circle& c : circles)
+	{
+		c.getFont(techFont, font);
+	}
+
+	for (Rect& r : rectangles)
+	{
+		r.getFont(techFont, font);
+	}
+
 	sf::RenderWindow window(sf::VideoMode(wr.w, wr.h), "SFML Works!")	;
-//	window.setFramerateLimit(60);
+	window.setFramerateLimit(60);
 	//shape.setFillColor(circles[1].getRGB());
 	//shape.setPosition(circles[1].getPos());
 
@@ -398,7 +409,6 @@ int main()
 		for (Circle& c : circles) 
 		{
 			//first thing, load the font
-			c.getFont(techFont, font);
 
 			sf::Vector2f nextPos = c.getPosition() + c.getSpeed();
 			c.setPosition(nextPos.x, nextPos.y);
@@ -410,7 +420,6 @@ int main()
 
 		for (Rect& r : rectangles) {
 			// first load
-			r.getFont(techFont, font);
 			
 			sf::Vector2f nextPos = r.getPosition() + r.getSpeed();
 			r.setPosition(nextPos.x, nextPos.y);
